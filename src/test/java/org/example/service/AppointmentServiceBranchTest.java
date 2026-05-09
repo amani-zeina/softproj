@@ -18,7 +18,7 @@ public class AppointmentServiceBranchTest {
                         "09:00",
                         60,
                         3,
-                        ServiceType.Upgrades
+                        ServiceType.GROUP
                 )
         );
 

@@ -13,15 +13,15 @@ public class AppointmentServiceCoverageJumpTest {
         AppointmentService service = new AppointmentService();
 
         assertDoesNotThrow(() ->
-                service.addAppointment("2031-02-01","09:00",60,2,ServiceType.Upgrades)
+                service.addAppointment("2031-02-01","09:00",60,2,ServiceType.GROUP)
         );
 
         assertDoesNotThrow(() ->
-                service.addAppointment("2031-02-01","11:00",60,2,ServiceType.Upgrades)
+                service.addAppointment("2031-02-01","11:00",60,2,ServiceType.GROUP)
         );
 
         assertDoesNotThrow(() ->
-                service.addAppointment("2031-02-02","10:30",60,3,ServiceType.Full_Inspection)
+                service.addAppointment("2031-02-02","10:30",60,3,ServiceType.ASSESSMENT)
         );
 
         assertDoesNotThrow(service::viewAllAppointments);

@@ -22,7 +22,7 @@ public class ParticipantRangeRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.IN_PERSON,
                 Status.AVAILABLE,
                 "None"
         );
@@ -43,7 +43,7 @@ public class ParticipantRangeRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.IN_PERSON,
                 Status.AVAILABLE,
                 "None"
         );
@@ -64,7 +64,7 @@ public class ParticipantRangeRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.IN_PERSON,
                 Status.AVAILABLE,
                 "None"
         );

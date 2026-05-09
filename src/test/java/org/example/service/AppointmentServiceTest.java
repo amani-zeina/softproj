@@ -30,7 +30,7 @@ public class AppointmentServiceTest {
                         "10:00",
                         60,
                         4,
-                        ServiceType.Upgrades
+                        ServiceType.GROUP
                 )
         );
     }
@@ -45,7 +45,7 @@ public class AppointmentServiceTest {
                         "07:00",
                         60,
                         4,
-                        ServiceType.Upgrades
+                        ServiceType.GROUP
                 )
         );
     }
@@ -135,7 +135,7 @@ public class AppointmentServiceTest {
         AppointmentService service = new AppointmentService();
 
         String pastDate = LocalDate.now().minusDays(10).toString(); // قديم بس مش منمسوح
-        service.addAppointment(pastDate, "09:00", 60, 2, ServiceType.Upgrades);
+        service.addAppointment(pastDate, "09:00", 60, 2, ServiceType.GROUP);
 
         List<Appointment> appointments = service.loadAppointments();
 
@@ -153,7 +153,7 @@ public class AppointmentServiceTest {
         AppointmentService service = new AppointmentService();
 
         String veryOldDate = LocalDate.now().minusDays(20).toString();
-        service.addAppointment(veryOldDate, "10:00", 60, 2, ServiceType.Full_Inspection);
+        service.addAppointment(veryOldDate, "10:00", 60, 2, ServiceType.ASSESSMENT);
 
         List<Appointment> appointments = service.loadAppointments();
 
@@ -169,7 +169,7 @@ public class AppointmentServiceTest {
 
         String upcomingDate = LocalDate.now().toString();
         String upcomingTime = LocalTime.now().plusHours(12).format(DateTimeFormatter.ofPattern("HH:mm"));
-        service.addAppointment(upcomingDate, upcomingTime, 60, 2, ServiceType.Upgrades);
+        service.addAppointment(upcomingDate, upcomingTime, 60, 2, ServiceType.GROUP);
 
         int id = service.loadAppointments().get(0).getId();
         service.bookAppointment(id, "user_reminder", 1);

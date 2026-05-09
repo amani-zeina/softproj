@@ -31,7 +31,7 @@ public class StatusRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.LATE,
                 "None"
         );
@@ -52,7 +52,7 @@ public class StatusRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.CONFIRMED,
                 "None"
         );
@@ -73,7 +73,7 @@ public class StatusRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );

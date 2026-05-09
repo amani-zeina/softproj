@@ -18,7 +18,7 @@ public class AppointmentServiceFinalTest {
                         "10:00",
                         60,
                         4,
-                        ServiceType.Upgrades
+                        ServiceType.GROUP
                 )
         );
 

@@ -23,7 +23,7 @@ public class WorkingHoursRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -45,7 +45,7 @@ public class WorkingHoursRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -67,7 +67,7 @@ public class WorkingHoursRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );

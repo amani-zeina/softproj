@@ -16,7 +16,7 @@ public class AppointmentTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Appointment.Status.AVAILABLE,
                 "None"
         );
@@ -34,7 +34,7 @@ public class AppointmentTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Appointment.Status.AVAILABLE,
                 "None"
         );
@@ -45,7 +45,7 @@ public class AppointmentTest {
         assertEquals(60, a.getDuration());
         assertEquals(4, a.getMaxParticipants());
         assertEquals(0, a.getCurrentParticipants());
-        assertEquals(ServiceType.Upgrades, a.getServiceType());
+        assertEquals(ServiceType.GROUP, a.getServiceType());
         assertEquals(Appointment.Status.AVAILABLE, a.getStatus());
         assertEquals("None", a.getBookedBy());
     }
