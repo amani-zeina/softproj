@@ -24,11 +24,13 @@ public class Main {
     private static final AppointmentService appointmentService = new AppointmentService();
 
  public static void main(String[] args) {
+    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    try {
+        scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
+                                      0, 24, TimeUnit.HOURS);
 
-    	ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    	scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
-    			0, 24, TimeUnit.HOURS);
-        while (true) {
+        boolean running = true;
+        while (running) {
             System.out.println("\n===== Appointment Scheduling System =====");
             System.out.println("1. Administrator");
             System.out.println("2. User");
@@ -42,11 +44,25 @@ public class Main {
                 case 2 -> userMenu();
                 case 3 -> {
                     System.out.println("Goodbye!");
-                    return;
+                    running = false; 
                 }
             }
-          }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException ex) {
+            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
+}
+
 
     
     private static int readIntInRange(int min, int max) {
