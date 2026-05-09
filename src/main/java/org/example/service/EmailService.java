@@ -18,7 +18,9 @@ public class EmailService {
         this.password = password;
     }
     public EmailService() {
-        Dotenv dotenv = Dotenv.load();
+       Dotenv dotenv = Dotenv.configure()
+        .ignoreIfMissing()
+        .load();
         this.username = dotenv.get("EMAIL_USERNAME");
         this.password = dotenv.get("EMAIL_PASSWORD");
     }
