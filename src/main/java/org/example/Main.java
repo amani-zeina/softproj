@@ -24,9 +24,10 @@ public class Main {
     private static final AppointmentService appointmentService = new AppointmentService();
 
    public static void main(String[] args) {
-        // استخدام try-with-resources لضمان إغلاق الـ scheduler تلقائياً
-        try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
-            
+        // تعريف المتغير خارج الـ try ليتم التعرف عليه في الـ finally
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        
+        try {
             scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
                     0, 24, TimeUnit.HOURS);
 
@@ -44,14 +45,17 @@ public class Main {
                     case 2 -> userMenu();
                     case 3 -> {
                         System.out.println("Goodbye!");
-                        // الـ scheduler سيغلق تلقائياً هنا بفضل الـ try-with-resources
-                        return; 
+                        return; // عند الخروج، سيتم تنفيذ كود الـ finally تلقائياً
                     }
                 }
             }
         } catch (Exception e) {
-            // معالجة أي خطأ قد يحدث أثناء تشغيل الـ scheduler
             System.err.println("System encountered an error: " + e.getMessage());
+        } finally {
+            // هذا هو الحل الذي يطلبه السونار: التأكد من إغلاق المورد في كل الحالات
+            if (scheduler != null) {
+                scheduler.shutdown(); 
+            }
         }
     }
 
