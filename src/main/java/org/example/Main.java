@@ -24,9 +24,9 @@ public class Main {
     private static final AppointmentService appointmentService = new AppointmentService();
 
   public static void main(String[] args) {
-        // التعريف يجب أن يكون داخل أقواس الـ try ليعتبره السونار محمياً ومغلقاً تلقائياً
-        try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
-            
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        
+        try {
             scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
                     0, 24, TimeUnit.HOURS);
 
@@ -49,11 +49,14 @@ public class Main {
                 }
             }
         } catch (Exception e) {
-            // استخدام رسالة بسيطة بدل printStackTrace لحل الـ Hotspot أيضاً
-            System.err.println("System notification: " + e.getMessage());
+            System.err.println("System Error: " + e.getMessage());
+        } finally {
+            if (scheduler != null) {
+                scheduler.shutdown();
+            }
         }
-        // لا داعي لـ finally هنا لأن try-with-resources ستقوم بالمهمة
     }
+    
     private static int readIntInRange(int min, int max) {
         while (true) {
             try {
