@@ -37,7 +37,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.projectKey=amani-zeina_softproj
+            -Dsonar.projectKey=amani-zeina
             -Dsonar.organization=amani-zeina
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
