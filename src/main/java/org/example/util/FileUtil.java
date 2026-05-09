@@ -12,10 +12,12 @@ public class FileUtil {
     public static void saveUsers(List<User> users) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(FILE))) {
             for (User u : users) {
-                pw.println(u.getUsername() + "," + u.getPassword()+ "," + u.getEmail());
+                pw.println(u.getUsername() + "," + u.getPassword() + "," + u.getEmail());
             }
         } catch (IOException e) {
-e.printStackTrace();        }
+            // تم استبدال printStackTrace برسالة آمنة لحل الـ Security Hotspot
+            System.err.println("Error saving users: " + e.getMessage());
+        }
     }
 
     public static List<User> loadUsers() {
@@ -26,53 +28,55 @@ e.printStackTrace();        }
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                users.add(new User(parts[0], parts[1], parts[2]));
+                if (parts.length >= 3) {
+                    users.add(new User(parts[0], parts[1], parts[2]));
+                }
             }
         } catch (IOException e) {
-e.printStackTrace();        }
+            System.err.println("Error loading users: " + e.getMessage());
+        }
 
         return users;
     }
+
     public static List<String> read(String fileName) {
         List<String> lines = new ArrayList<>();
         File file = new File(fileName);
 
+        // استخدام try-with-resources لضمان إغلاق الـ BufferedReader تلقائياً وحل الـ Blocker
         try {
             if (!file.exists()) {
-                file.createNewFile();
+                boolean created = file.createNewFile();
+                if (!created) {
+                    System.err.println("Notice: File already exists or could not be created.");
+                }
             }
 
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                if (!line.trim().isEmpty())
-                    lines.add(line);
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (!line.trim().isEmpty())
+                        lines.add(line);
+                }
             }
-
-            br.close();
         } catch (IOException e) {
-            System.out.println("File read error: " + e.getMessage());
+            System.err.println("File read error: " + e.getMessage());
         }
 
         return lines;
     }
 
     public static void write(String fileName, List<String> lines) {
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-
+        // استخدام try-with-resources لضمان إغلاق الـ BufferedWriter تلقائياً وحل الـ Blocker
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             for (String line : lines) {
                 bw.write(line);
                 bw.newLine();
             }
-
-            bw.close();
         } catch (IOException e) {
-            System.out.println("File write error: " + e.getMessage());
+            System.err.println("File write error: " + e.getMessage());
         }
     }
 }
