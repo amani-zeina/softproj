@@ -15,7 +15,7 @@ public class FileUtil {
                 pw.println(u.getUsername() + "," + u.getPassword()+ "," + u.getEmail());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+           System.err.println("An error occurred while processing the file.");
         }
     }
 
@@ -33,7 +33,7 @@ public class FileUtil {
                 users.add(new User(parts[0], parts[1], parts[2]));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("An error occurred while processing the file.");
         }
 
         return users;
