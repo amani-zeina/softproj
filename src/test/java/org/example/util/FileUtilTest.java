@@ -44,7 +44,10 @@ public class FileUtilTest {
     void readShouldCreateFileIfNotExists() {
 
         File file = new File("newfile.txt");
-        if(file.exists()) file.delete();
+        
+        if (file.exists()) {
+            assertTrue(file.delete(), "Existing file should be deleted before the test starts");
+        }
 
         List<String> lines = FileUtil.read("newfile.txt");
 
