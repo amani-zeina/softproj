@@ -23,11 +23,10 @@ public class Main {
     private static final UserService userService = new UserService();
     private static final AppointmentService appointmentService = new AppointmentService();
 
-   public static void main(String[] args) {
-        // تعريف المتغير خارج الـ try ليتم التعرف عليه في الـ finally
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        
-        try {
+  public static void main(String[] args) {
+        // التعريف يجب أن يكون داخل أقواس الـ try ليعتبره السونار محمياً ومغلقاً تلقائياً
+        try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
+            
             scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
                     0, 24, TimeUnit.HOURS);
 
@@ -45,20 +44,16 @@ public class Main {
                     case 2 -> userMenu();
                     case 3 -> {
                         System.out.println("Goodbye!");
-                        return; // عند الخروج، سيتم تنفيذ كود الـ finally تلقائياً
+                        return; 
                     }
                 }
             }
         } catch (Exception e) {
-            System.err.println("System encountered an error: " + e.getMessage());
-        } finally {
-            // هذا هو الحل الذي يطلبه السونار: التأكد من إغلاق المورد في كل الحالات
-            if (scheduler != null) {
-                scheduler.shutdown(); 
-            }
+            // استخدام رسالة بسيطة بدل printStackTrace لحل الـ Hotspot أيضاً
+            System.err.println("System notification: " + e.getMessage());
         }
+        // لا داعي لـ finally هنا لأن try-with-resources ستقوم بالمهمة
     }
-
     private static int readIntInRange(int min, int max) {
         while (true) {
             try {
