@@ -15,7 +15,7 @@ public class FileUtil {
                 pw.println(u.getUsername() + "," + u.getPassword() + "," + u.getEmail());
             }
         } catch (IOException e) {
-System.err.println("Error loading users: " + e.getMessage());        }
+e.printStackTrace();       }
     }
 
     public static List<User> loadUsers() {
@@ -33,7 +33,7 @@ System.err.println("Error loading users: " + e.getMessage());        }
                 }
             }
         } catch (IOException e) {
-System.err.println("Error loading users: " + e.getMessage());        }
+e.printStackTrace();   }
 
         return users;
     }
