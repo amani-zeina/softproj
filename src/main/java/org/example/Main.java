@@ -23,46 +23,60 @@ public class Main {
     private static final UserService userService = new UserService();
     private static final AppointmentService appointmentService = new AppointmentService();
 
- public static void main(String[] args) {
-    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    try {
-        scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
-                                      0, 24, TimeUnit.HOURS);
+ 
+    static class AutoCloseableScheduler implements AutoCloseable {
+        private final ScheduledExecutorService scheduler;
 
-        boolean running = true;
-        while (running) {
-            System.out.println("\n===== Appointment Scheduling System =====");
-            System.out.println("1. Administrator");
-            System.out.println("2. User");
-            System.out.println("3. Exit");
-            System.out.print("Choose: ");
+        public AutoCloseableScheduler(int poolSize) {
+            this.scheduler = Executors.newScheduledThreadPool(poolSize);
+        }
 
-            int choice = readIntInRange(1, 3);
+        public ScheduledExecutorService getScheduler() {
+            return scheduler;
+        }
 
-            switch (choice) {
-                case 1 -> adminLoginMenu();
-                case 2 -> userMenu();
-                case 3 -> {
-                    System.out.println("Goodbye!");
-                    running = false; 
+        @Override
+        public void close() {
+            scheduler.shutdown();
+            try {
+                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                    scheduler.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                scheduler.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    // المين
+    public static void main(String[] args) {
+        try (AutoCloseableScheduler autoScheduler = new AutoCloseableScheduler(1)) {
+            ScheduledExecutorService scheduler = autoScheduler.getScheduler();
+            scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
+                                          0, 24, TimeUnit.HOURS);
+
+            boolean running = true;
+            while (running) {
+                System.out.println("\n===== Appointment Scheduling System =====");
+                System.out.println("1. Administrator");
+                System.out.println("2. User");
+                System.out.println("3. Exit");
+                System.out.print("Choose: ");
+
+                int choice = readIntInRange(1, 3);
+
+                switch (choice) {
+                    case 1 -> adminLoginMenu();
+                    case 2 -> userMenu();
+                    case 3 -> {
+                        System.out.println("Goodbye!");
+                        running = false;
+                    }
                 }
             }
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        scheduler.shutdown();
-        try {
-            if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
-                scheduler.shutdownNow();
-            }
-        } catch (InterruptedException ex) {
-            scheduler.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
     }
-}
-
 
     
     private static int readIntInRange(int min, int max) {
