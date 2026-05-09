@@ -14,21 +14,24 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppointmentServiceSuccessFlowTest {
 
 	private int createFutureAppointment(AppointmentService service, String time, ServiceType type, int maxParticipants) {
-		
-	    String date = LocalDate.now().plusYears(5).toString();
+    
+    String date = LocalDate.now().plusYears(5).toString();
 
-	    boolean added = service.addAppointment(date, time, 60, maxParticipants, type);
-	    assertTrue(added, "Appointment should be added successfully");
+    boolean added = service.addAppointment(date, time, 60, maxParticipants, type);
+    assertTrue(added, "Appointment should be added successfully");
 
-	    Appointment created = service.loadAppointments().stream()
-	            .filter(a -> a.getDate().equals(date) && a.getTime().equals(time) && a.getServiceType() == type)
-	            .max(Comparator.comparingInt(Appointment::getId))
-	            .orElse(null);
+    Appointment created = service.loadAppointments().stream()
+            .filter(a -> a.getDate().equals(date) && a.getTime().equals(time) && a.getServiceType() == type)
+            .max(Comparator.comparingInt(Appointment::getId))
+            .orElse(null);
+    if (created == null) {
+        fail("Expected appointment was not found in the system.");
+        return -1; 
+    }
 
-	    assertNotNull(created);
-	    return created.getId();
-	}
-
+    assertNotNull(created);
+    return created.getId();
+}
 
     @Test
     void addBookAndCancelByAdminFlowShouldWork() {
