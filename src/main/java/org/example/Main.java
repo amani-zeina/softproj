@@ -23,29 +23,36 @@ public class Main {
     private static final UserService userService = new UserService();
     private static final AppointmentService appointmentService = new AppointmentService();
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
+        // استخدام try-with-resources لضمان إغلاق الـ scheduler تلقائياً
+        try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
+            
+            scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
+                    0, 24, TimeUnit.HOURS);
 
-    	ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    	scheduler.scheduleAtFixedRate(() -> appointmentService.sendReminders(),
-    			0, 24, TimeUnit.HOURS);
-        while (true) {
-            System.out.println("\n===== Appointment Scheduling System =====");
-            System.out.println("1. Administrator");
-            System.out.println("2. User");
-            System.out.println("3. Exit");
-            System.out.print("Choose: ");
+            while (true) {
+                System.out.println("\n===== Appointment Scheduling System =====");
+                System.out.println("1. Administrator");
+                System.out.println("2. User");
+                System.out.println("3. Exit");
+                System.out.print("Choose: ");
 
-            int choice = readIntInRange(1, 3);
+                int choice = readIntInRange(1, 3);
 
-            switch (choice) {
-                case 1 -> adminLoginMenu();
-                case 2 -> userMenu();
-                case 3 -> {
-                    System.out.println("Goodbye!");
-                    return;
+                switch (choice) {
+                    case 1 -> adminLoginMenu();
+                    case 2 -> userMenu();
+                    case 3 -> {
+                        System.out.println("Goodbye!");
+                        // الـ scheduler سيغلق تلقائياً هنا بفضل الـ try-with-resources
+                        return; 
+                    }
                 }
             }
-          }
+        } catch (Exception e) {
+            // معالجة أي خطأ قد يحدث أثناء تشغيل الـ scheduler
+            System.err.println("System encountered an error: " + e.getMessage());
+        }
     }
 
     private static int readIntInRange(int min, int max) {
