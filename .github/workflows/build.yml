@@ -2,9 +2,9 @@ yaml
 name: Build and Analyze 
 on: 
 push: 
-branches: - master 
+branches: - main 
 pull_request: 
-branches: - master 
+branches: - main 
 jobs: 
 build: 
 name: Build and SonarCloud Scan 
