@@ -33,7 +33,7 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@524e931405e32cf6eb6e7f8670868a8f57276707
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
