@@ -15,8 +15,7 @@ public class FileUtil {
                 pw.println(u.getUsername() + "," + u.getPassword() + "," + u.getEmail());
             }
         } catch (IOException e) {
-            // تم استبدال printStackTrace برسالة آمنة لحل الـ Security Hotspot
-            System.err.println("Error saving users: " + e.getMessage());
+            e.printStackTrace();  
         }
     }
 
@@ -35,7 +34,7 @@ public class FileUtil {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error loading users: " + e.getMessage());
+            e.printStackTrace();  
         }
 
         return users;
@@ -45,7 +44,6 @@ public class FileUtil {
         List<String> lines = new ArrayList<>();
         File file = new File(fileName);
 
-        // استخدام try-with-resources لضمان إغلاق الـ BufferedReader تلقائياً وحل الـ Blocker
         try {
             if (!file.exists()) {
                 boolean created = file.createNewFile();
@@ -69,7 +67,7 @@ public class FileUtil {
     }
 
     public static void write(String fileName, List<String> lines) {
-        // استخدام try-with-resources لضمان إغلاق الـ BufferedWriter تلقائياً وحل الـ Blocker
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             for (String line : lines) {
                 bw.write(line);
