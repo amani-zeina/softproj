@@ -34,6 +34,9 @@ jobs:
             
       - name: Build with Maven
         run: mvn -B verify -Dmaven.test.failure.ignore=true --file pom.xml
+
+      - name: Enable debug logging
+        run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
         
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
