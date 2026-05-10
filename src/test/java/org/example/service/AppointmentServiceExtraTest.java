@@ -20,7 +20,7 @@ public class AppointmentServiceExtraTest {
                 ServiceType.GROUP
         );
 
-        assertNotNull(result);
+        assertTrue(result);
     }
 
     @Test
