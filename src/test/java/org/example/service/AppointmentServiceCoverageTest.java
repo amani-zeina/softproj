@@ -18,7 +18,7 @@ public class AppointmentServiceCoverageTest {
                         "10:30",
                         60,
                         4,
-                        ServiceType.Upgrades
+                        ServiceType.GROUP
                 )
         );
     }

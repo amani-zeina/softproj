@@ -38,7 +38,7 @@ public class AppointmentServiceSuccessFlowTest {
     	FileUtil.write("appointments.txt", List.of());
         AppointmentService service = new AppointmentService();
 
-        int id = createFutureAppointment(service, "09:00", ServiceType.Upgrades, 4);
+        int id = createFutureAppointment(service, "09:00", ServiceType.GROUP, 4);
 
         assertTrue(service.bookAppointment(id, "user_admin_cancel", 2));
         assertTrue(service.cancelAppointmentByAdmin(id));
@@ -48,7 +48,7 @@ public class AppointmentServiceSuccessFlowTest {
     void addEditAndDeleteFlowShouldWork() {
         AppointmentService service = new AppointmentService();
 
-        int id = createFutureAppointment(service, "11:00", ServiceType.Full_Inspection, 3);
+        int id = createFutureAppointment(service, "11:00", ServiceType.ASSESSMENT, 3);
 
         assertTrue(service.canEditAppointment(id));
         assertTrue(service.editAppointment(id, LocalDate.now().plusYears(5).plusDays(400).toString(), "12:00", 90));
@@ -59,7 +59,7 @@ public class AppointmentServiceSuccessFlowTest {
     void addBookEditParticipantsAndCancelByUserFlowShouldWork() {
         AppointmentService service = new AppointmentService();
 
-        int id = createFutureAppointment(service, "13:00", ServiceType.Upgrades, 4);
+        int id = createFutureAppointment(service, "13:00", ServiceType.GROUP, 4);
 
         assertTrue(service.bookAppointment(id, "user_cancel_flow", 2));
         assertTrue(service.editParticipants(id, "user_cancel_flow", 3));
@@ -70,7 +70,7 @@ public class AppointmentServiceSuccessFlowTest {
     void validateBookedAppointmentShouldReturnFalse() {
         AppointmentService service = new AppointmentService();
 
-        int id = createFutureAppointment(service, "15:00", ServiceType.Upgrades, 4);
+        int id = createFutureAppointment(service, "15:00", ServiceType.GROUP, 4);
 
         assertTrue(service.bookAppointment(id, "user_validate", 2));
 

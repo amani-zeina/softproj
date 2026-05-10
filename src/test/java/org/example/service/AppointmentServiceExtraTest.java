@@ -17,10 +17,10 @@ public class AppointmentServiceExtraTest {
                 "11:00",
                 60,
                 4,
-                ServiceType.Upgrades
+                ServiceType.GROUP
         );
 
-        assertNotNull(result);
+        assertTrue(result);
     }
 
     @Test

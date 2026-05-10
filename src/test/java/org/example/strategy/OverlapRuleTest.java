@@ -23,7 +23,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -35,7 +35,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -59,7 +59,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -71,7 +71,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -95,7 +95,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -107,7 +107,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Consultation,
+                ServiceType.URGENT,
                 Status.AVAILABLE,
                 "None"
         );
@@ -131,7 +131,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );
@@ -143,7 +143,7 @@ public class OverlapRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.AVAILABLE,
                 "None"
         );

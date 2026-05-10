@@ -23,7 +23,7 @@ public class DoubleBookingRuleTest {
                 60,
                 4,
                 1,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.CONFIRMED,
                 "zeina"
         );
@@ -35,7 +35,7 @@ public class DoubleBookingRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Consultation,
+                ServiceType.URGENT,
                 Status.AVAILABLE,
                 "None"
         );
@@ -59,7 +59,7 @@ public class DoubleBookingRuleTest {
                 60,
                 4,
                 1,
-                ServiceType.Upgrades,
+                ServiceType.GROUP,
                 Status.CONFIRMED,
                 "ahmad"
         );
@@ -71,7 +71,7 @@ public class DoubleBookingRuleTest {
                 60,
                 4,
                 0,
-                ServiceType.Consultation,
+                ServiceType.URGENT,
                 Status.AVAILABLE,
                 "None"
         );
